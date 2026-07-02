@@ -1,3 +1,3 @@
-module github.com/yanzay/as2inspect
+module github.com/certcutover/as2inspect
 
 go 1.26.4

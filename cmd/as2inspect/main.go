@@ -15,7 +15,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/yanzay/as2inspect/internal/certs"
+	"github.com/certcutover/as2inspect/internal/certs"
 )
 
 // version is set at build time via -ldflags "-X main.version=vX.Y.Z".

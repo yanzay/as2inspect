@@ -43,7 +43,7 @@ changelog:
 homebrew_casks:
   - name: as2inspect
     repository:
-      owner: yanzay
+      owner: certcutover
       name: homebrew-tap
       branch: main
       # Token with push access to the tap repo, provided by CI as HOMEBREW_TAP_TOKEN.

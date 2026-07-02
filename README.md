@@ -13,14 +13,14 @@ No signup, no network calls, no private keys.
 
 ```sh
 # Homebrew (macOS / Linux):
-brew install yanzay/tap/as2inspect
+brew install certcutover/tap/as2inspect
 
 # Go (any platform):
-go install github.com/yanzay/as2inspect/cmd/as2inspect@latest
+go install github.com/certcutover/as2inspect/cmd/as2inspect@latest
 ```
 
 Or download a prebuilt binary (macOS, Linux, Windows) from
-[Releases](https://github.com/yanzay/as2inspect/releases) and verify against
+[Releases](https://github.com/certcutover/as2inspect/releases) and verify against
 `checksums.txt`. **No install at all?** Use the browser tool at
 [certcutover.com](https://certcutover.com).
 

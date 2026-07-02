@@ -3,12 +3,12 @@ name: release
 # Push a version tag to cut a release:
 #   git tag v0.3.0 && git push origin v0.3.0
 # GoReleaser then builds all binaries, creates the GitHub release with
-# checksums, and updates the Homebrew tap (yanzay/homebrew-tap) automatically.
+# checksums, and updates the Homebrew tap (certcutover/homebrew-tap) automatically.
 #
 # One-time setup: the tap update needs write access to a *different* repo than
 # the default GITHUB_TOKEN can reach. Create a fine-grained PAT scoped to the
 # `homebrew-tap` repo with Contents: Read and write, then add it to THIS repo
-# (yanzay/as2inspect) as the secret HOMEBREW_TAP_TOKEN.
+# (certcutover/as2inspect) as the secret HOMEBREW_TAP_TOKEN.
 on:
   push:
     tags:
