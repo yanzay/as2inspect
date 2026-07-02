@@ -54,11 +54,12 @@ homebrew_casks:
     commit_author:
       name: goreleaser-bot
       email: goreleaser@certcutover.com
-    # The binary is unsigned; strip the macOS quarantine attribute on install so
-    # it runs without a Gatekeeper prompt.
+    # The binary is unsigned; strip the macOS quarantine attribute from the
+    # whole staged dir on install so it runs without a Gatekeeper prompt.
+    # (Recursive -dr over staged_path avoids depending on the pre-rename filename.)
     hooks:
       post:
         install: |
           if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/as2inspect"]
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", staged_path]
           end
