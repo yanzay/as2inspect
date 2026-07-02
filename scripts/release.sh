@@ -18,3 +18,6 @@ done
 
 ( cd dist && shasum -a 256 as2inspect_* > checksums.txt )
 echo "checksums:"; cat dist/checksums.txt
+echo
+echo "Reminder: after 'gh release create ${VER} dist/*', bump version + the 4"
+echo "darwin/linux sha256 values in the homebrew-tap Formula/as2inspect.rb."
