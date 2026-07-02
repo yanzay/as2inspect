@@ -60,6 +60,16 @@ partner-signing.pem  [WARNING]
 Only **public** certificates are accepted. Private keys and PFX/PKCS#12 files are
 detected and refused before any parsing happens — the tool never wants your keys.
 
+## Releasing
+
+Fully automated. Push a version tag and GitHub Actions (GoReleaser) builds every
+binary, creates the release with checksums, and updates the Homebrew tap:
+
+```sh
+git tag v0.2.0
+git push origin v0.2.0
+```
+
 ## License
 
 MIT

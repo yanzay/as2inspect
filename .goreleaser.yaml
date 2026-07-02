@@ -1,0 +1,64 @@
+# GoReleaser config for as2inspect.
+# Triggered by pushing a version tag (see .github/workflows/release.yml):
+#   git tag v0.2.0 && git push origin v0.2.0
+# Builds all binaries, creates the GitHub release with checksums, and updates
+# the Homebrew tap formula automatically.
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: as2inspect
+    main: ./cmd/as2inspect
+    binary: as2inspect
+    env:
+      - CGO_ENABLED=0
+    goos: [darwin, linux, windows]
+    goarch: [amd64, arm64]
+    # Stamp the version into main.version (matches the ldflags used manually).
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  # Ship bare binaries (not tarballs) so the download URL is a runnable file,
+  # matching the v0.1.0 assets and keeping the "download and run" path simple.
+  - id: as2inspect
+    formats: [binary]
+    name_template: "as2inspect_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+
+# Auto-update the Homebrew tap on each release (modern cask-based distribution).
+homebrew_casks:
+  - name: as2inspect
+    repository:
+      owner: yanzay
+      name: homebrew-tap
+      branch: main
+      # Token with push access to the tap repo, provided by CI as HOMEBREW_TAP_TOKEN.
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    directory: Casks
+    homepage: "https://certcutover.com"
+    description: "Inspect AS2 & X.509 certificates: role, expiry, fingerprint"
+    commit_author:
+      name: goreleaser-bot
+      email: goreleaser@certcutover.com
+    # The binary is unsigned; strip the macOS quarantine attribute on install so
+    # it runs without a Gatekeeper prompt.
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/as2inspect"]
+          end
